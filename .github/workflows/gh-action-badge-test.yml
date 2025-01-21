@@ -1,0 +1,30 @@
+name: Generate simple badge
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  generate-badges:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: value-badge
+        id: value-badge
+        run: echo "BADGE_VALUE=80" >> $GITHUB_ENV
+
+      - name: Generate badge
+        id: badge-generation
+        uses: ./.github/actions/gh-action-badge
+        with:
+          badge-color: "#e32323"
+          badge-label: "label"
+          badge-filename: "badge.svg"
+          badge-value: "${BADGE_VALUE}"
+
+      - name: Print url of badge
+        run: |
+          echo "Badge URL: ${{ steps.badge-generation.outputs.badge-url }}"

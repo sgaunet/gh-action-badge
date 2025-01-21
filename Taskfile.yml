@@ -1,0 +1,14 @@
+---
+# https://taskfile.dev
+version: '3'
+tasks:
+  default:
+    desc: "List tasks"
+    cmds:
+      - task -a
+
+  build:
+    desc: "Build Docker image"
+    cmds:
+      - docker build . -t sgaunet/gh-action-badge:latest --push
+

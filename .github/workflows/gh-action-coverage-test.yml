@@ -1,0 +1,43 @@
+name: Generate coverage badges
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  generate-badges:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: coverage
+        id: coverage
+        run: echo "COVERAGE_VALUE=80" >> $GITHUB_ENV
+
+      - name: Generate coverage badge
+        id: coverage-badge
+        uses: ./.github/actions/gh-action-coverage
+        with:
+          limit-coverage: "80"
+          badge-label: "coverage"
+          badge-filename: "coverage-badge.svg"
+          badge-value: "${COVERAGE_VALUE}"
+
+      - name: Generate coverage badge2
+        id: coverage-badge2
+        uses: ./.github/actions/gh-action-coverage
+        with:
+          limit-coverage: "90"
+          badge-label: "coverage"
+          badge-filename: "coverage-badge2.svg"
+          badge-value: "${COVERAGE_VALUE}"
+
+      - name: Print url of badge
+        run: |
+          echo "Badge URL: ${{ steps.coverage-badge.outputs.badge-url }}"
+
+      - name: Print url of badge2
+        run: |
+          echo "Badge URL: ${{ steps.coverage-badge2.outputs.badge-url }}"

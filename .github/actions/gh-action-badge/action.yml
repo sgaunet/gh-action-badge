@@ -1,0 +1,54 @@
+name: 'create badge'
+description: 'Generate a badge'
+inputs:
+  badge-color:
+    description: 'Color of the badge'
+    required: true
+    default: "#e32323"
+  badge-label:
+    description: 'Badge label'
+    required: true
+    default: ""
+  badge-filename:
+    description: 'Badge filename'
+    required: true
+    default: ""
+  badge-value:
+    description: 'Badge value'
+    required: true
+
+outputs:
+  badge-url:
+    description: "URL of the badge"
+    value: ${{ steps.badge-url.outputs.badge-url }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set GitHub Path
+      run: echo "$GITHUB_ACTION_PATH" >> $GITHUB_PATH
+      shell: bash
+      env:
+        GITHUB_ACTION_PATH: ${{ github.action_path }}
+
+    # setup docker
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: launch docker image"
+      run: docker run --rm 
+        -e GITHUB_TOKEN=${{ github.token }} 
+        -e GITHUB_ACTOR=${{ github.actor }} 
+        -e GITHUB_ACTOR_ID=${{ github.actor_id }} 
+        -e GITHUB_REPOSITORY=${GITHUB_REPOSITORY}.wiki 
+        -e BADGE_COLOR=${{ inputs.badge-color }} 
+        -e BADGE_LABEL=${{ inputs.badge-label }} 
+        -e BADGE_FILENAME=${{ inputs.badge-filename }} 
+        -e BADGE_VALUE=${{ inputs.badge-value }} 
+        sgaunet/gh-action-badge:latest
+      shell: bash
+
+    - name: url of the badge
+      id: badge-url
+      run: echo "badge-url=$(echo https://raw.githubusercontent.com/wiki/${GITHUB_REPOSITORY}/${{ inputs.badge-filename }})" >> $GITHUB_OUTPUT
+      shell: bash
