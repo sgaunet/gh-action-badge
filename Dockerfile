@@ -1,6 +1,6 @@
 FROM sgaunet/gobadger:0.3.1 AS gobadger
 
-FROM alpine:3.22.0
+FROM alpine:3.22.1
 
 RUN apk add --no-cache bash curl jq git
 COPY --from=gobadger /usr/bin/gobadger /usr/bin/gobadger
