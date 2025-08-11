@@ -10,7 +10,7 @@ jobs:
   generate-badges:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: value-badge
         id: value-badge
