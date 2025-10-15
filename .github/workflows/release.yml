@@ -1,0 +1,41 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - '*'  # Run workflow when any tag is pushed
+
+permissions:
+  contents: write  # This is required for creating releases
+
+jobs:
+  build:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0  # Fetch all history for tag annotations
+
+      - name: Get tag message
+        id: tag
+        run: |
+          TAG_NAME=${GITHUB_REF#refs/tags/}
+          TAG_MESSAGE=$(git tag -l --format='%(contents)' $TAG_NAME)
+          echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
+          echo "tag_message<<EOF" >> $GITHUB_OUTPUT
+          if [ -z "$TAG_MESSAGE" ]; then
+            echo "Release $TAG_NAME" >> $GITHUB_OUTPUT
+          else
+            echo "$TAG_MESSAGE" >> $GITHUB_OUTPUT
+          fi
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Release ${{ steps.tag.outputs.tag_name }}
+          body: ${{ steps.tag.outputs.tag_message }}
+          draft: false
+          prerelease: false
