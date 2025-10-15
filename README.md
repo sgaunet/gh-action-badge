@@ -1,5 +1,10 @@
 # gh-action-badge
 
+[![GitHub release](https://img.shields.io/github/release/sgaunet/gh-action-badge.svg)](https://github.com/sgaunet/gh-action-badge/releases/latest)
+[![CI Status](https://github.com/sgaunet/gh-action-badge/actions/workflows/publish.yml/badge.svg)](https://github.com/sgaunet/gh-action-badge/actions/workflows/publish.yml)
+[![CI Status](https://github.com/sgaunet/gh-action-badge/actions/workflows/release.yml/badge.svg)](https://github.com/sgaunet/gh-action-badge/actions/workflows/release.yml)
+[![License](https://img.shields.io/github/license/sgaunet/gh-action-badge.svg)](LICENSE)
+
 This repository contains Github Actions that generate one or more badges that will be hosted in the repository's wiki.
 
 The badge is a svg file that is customizable. Two differents badges can be generated:
