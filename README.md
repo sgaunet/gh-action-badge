@@ -35,9 +35,9 @@ You need to create to initialize the wiki of your project. This can be done by c
 
 Resulting badges:
 
-![coverage1](https://raw.githubusercontent.com/wiki/ghcr.io/sgaunet/gh-action-badge/coverage-badge.svg)
+![coverage1](https://raw.githubusercontent.com/wiki/sgaunet/gh-action-badge/coverage-badge.svg)
 
-![coverage2](https://raw.githubusercontent.com/wiki/ghcr.io/sgaunet/gh-action-badge/coverage-badge2.svg)
+![coverage2](https://raw.githubusercontent.com/wiki/sgaunet/gh-action-badge/coverage-badge2.svg)
 
 ### Fixed color badge
 
@@ -52,7 +52,7 @@ Resulting badges:
 
 Resulting badge:
 
-![badge](https://raw.githubusercontent.com/wiki/ghcr.io/sgaunet/gh-action-badge/badge.svg)
+![badge](https://raw.githubusercontent.com/wiki/sgaunet/gh-action-badge/badge.svg)
 
 The svg file can be referenced in the main README (or any other markdown file) with the following URL: `https://raw.githubusercontent.com/wiki/USERNAME/REPOSITORY/myimage.png`
 
