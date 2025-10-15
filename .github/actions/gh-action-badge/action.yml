@@ -45,7 +45,7 @@ runs:
         -e BADGE_LABEL=${{ inputs.badge-label }} 
         -e BADGE_FILENAME=${{ inputs.badge-filename }} 
         -e BADGE_VALUE=${{ inputs.badge-value }} 
-        sgaunet/gh-action-badge:latest
+        ghcr.io/sgaunet/gh-action-badge:latest
       shell: bash
 
     - name: url of the badge

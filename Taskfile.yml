@@ -10,5 +10,5 @@ tasks:
   build:
     desc: "Build Docker image"
     cmds:
-      - docker build . -t sgaunet/gh-action-badge:latest --push
+      - docker build . -t ghcr.io/sgaunet/gh-action-badge:latest --push
 
