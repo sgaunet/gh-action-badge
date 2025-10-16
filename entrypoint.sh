@@ -34,7 +34,7 @@ if ! git clone --depth 1 "https://github.com/${GITHUB_REPOSITORY}.git"; then
 fi
 cd "$(basename "${GITHUB_REPOSITORY}")" || exit 1
 
-if [ -z "${BADGE_COLOR}" ]
+if [ -z "${BADGE_COLOR:-}" ]
 then
   # mode coverage badge
 
