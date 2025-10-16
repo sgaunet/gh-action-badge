@@ -12,22 +12,11 @@ is_float() {
   [[ "$1" =~ ^-?[0-9]*\.[0-9]+$ ]]
 }
 
-# Validate filename to prevent path traversal
-validate_filename() {
-  if [[ "$1" =~ [./] ]] || [[ "$1" =~ ^- ]]; then
-    echo "Error: Invalid filename '$1' - must not contain '.', '/', or start with '-'" >&2
-    exit 1
-  fi
-}
-
 # Validate required environment variables
 if [[ -z "${GITHUB_TOKEN:-}" ]] || [[ -z "${GITHUB_ACTOR:-}" ]] || [[ -z "${GITHUB_REPOSITORY:-}" ]] || [[ -z "${BADGE_FILENAME:-}" ]]; then
   echo "Error: Required environment variables are missing" >&2
   exit 1
 fi
-
-# Validate badge filename
-validate_filename "${BADGE_FILENAME}"
 
 # git configuration
 git config --global user.name "${GITHUB_ACTOR}"
