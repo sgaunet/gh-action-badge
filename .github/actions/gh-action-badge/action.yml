@@ -1,5 +1,10 @@
 name: 'create badge'
-description: 'Generate a badge'
+description: 'Generate a custom SVG badge with fixed color and store it in your repository wiki'
+
+branding:
+  icon: 'award'
+  color: 'blue'
+
 inputs:
   badge-color:
     description: 'Color of the badge'

@@ -1,5 +1,10 @@
 name: 'coverage badge'
-description: 'Generate a badge for coverage'
+description: 'Generate a dynamic SVG coverage badge with color based on threshold and store it in your repository wiki'
+
+branding:
+  icon: 'check-circle'
+  color: 'green'
+
 inputs:
   limit-coverage:
     description: 'Limit coverage'
