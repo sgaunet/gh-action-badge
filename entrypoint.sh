@@ -22,13 +22,9 @@ fi
 git config --global user.name "${GITHUB_ACTOR}"
 git config --global user.email "${GITHUB_ACTOR_ID}+${GITHUB_ACTOR}@users.noreply.github.com"
 
-# Configure git credential helper to avoid token exposure in logs
-git config --global credential.helper store
-echo "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com" > ~/.git-credentials
-chmod 600 ~/.git-credentials
-
 # Clone the repository with shallow clone for performance
-if ! git clone --depth 1 "https://github.com/${GITHUB_REPOSITORY}.git"; then
+# Credentials are passed inline to avoid writing tokens to disk
+if ! git clone --depth 1 "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"; then
   echo "Error: Failed to clone wiki repository" >&2
   exit 1
 fi
@@ -83,7 +79,7 @@ if ! git diff-index --quiet HEAD --; then
     exit 1
   fi
 
-  # Push changes (credentials already configured)
+  # Push changes (credentials embedded in remote URL)
   if ! git push; then
     echo "Error: Failed to push to wiki repository" >&2
     exit 1
