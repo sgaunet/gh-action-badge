@@ -27,7 +27,7 @@ jobs:
           badge-color: "#e32323"
           badge-label: "label"
           badge-filename: "badge.svg"
-          badge-value: "${BADGE_VALUE}"
+          badge-value: "${{ env.BADGE_VALUE }}"
 
       - name: Print url of badge
         run: |
