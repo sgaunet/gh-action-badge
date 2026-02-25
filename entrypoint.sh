@@ -45,13 +45,16 @@ validate_filename "${BADGE_FILENAME}" || exit 1
 git config --global user.name "${GITHUB_ACTOR}"
 git config --global user.email "${GITHUB_ACTOR_ID}+${GITHUB_ACTOR}@users.noreply.github.com"
 
-# Clone the repository with shallow clone for performance
+# Construct wiki repository URL
+WIKI_REPO="${GITHUB_REPOSITORY}.wiki"
+
+# Clone the wiki repository with shallow clone for performance
 # Credentials are passed inline to avoid writing tokens to disk
-if ! git clone --depth 1 "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"; then
-  echo "Error: Failed to clone wiki repository" >&2
+if ! git clone --depth 1 "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${WIKI_REPO}.git"; then
+  echo "Error: Failed to clone wiki repository (${WIKI_REPO})" >&2
   exit 1
 fi
-cd "$(basename "${GITHUB_REPOSITORY}")" || exit 1
+cd "$(basename "${WIKI_REPO}")" || exit 1
 
 if [ -z "${BADGE_COLOR:-}" ]
 then
