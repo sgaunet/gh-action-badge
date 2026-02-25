@@ -7,27 +7,27 @@ branding:
 
 inputs:
   limit-coverage:
-    description: 'Limit coverage'
+    description: 'Coverage threshold value (0-100)'
     required: false
     default: "0"
   color-under-limit:
-    description: 'Color under limit (red by default)'
+    description: 'Color when coverage is under limit (hex format: #RRGGBB)'
     required: false
     default: "#e32323"
   color-over-limit:
-    description: 'Color over limit (green by default)'
+    description: 'Color when coverage is over limit (hex format: #RRGGBB)'
     required: false
     default: "#2db21b"
   badge-label:
-    description: 'Badge label'
+    description: 'Badge label (left side text)'
     required: false
     default: "coverage"
   badge-filename:
-    description: 'Badge filename'
+    description: 'Badge filename (alphanumeric, dots, dashes, underscores only)'
     required: false
     default: "badge.svg"
   badge-value:
-    description: 'Badge value'
+    description: 'Coverage value (0-100 numeric)'
     required: true
 
 outputs:

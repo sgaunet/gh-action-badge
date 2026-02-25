@@ -7,19 +7,19 @@ branding:
 
 inputs:
   badge-color:
-    description: 'Color of the badge'
+    description: 'Color of the badge (hex format: #RRGGBB, e.g., #e32323)'
     required: true
     default: "#e32323"
   badge-label:
-    description: 'Badge label'
+    description: 'Badge label (left side text)'
     required: true
     default: ""
   badge-filename:
-    description: 'Badge filename'
+    description: 'Badge filename (alphanumeric, dots, dashes, underscores only)'
     required: true
     default: ""
   badge-value:
-    description: 'Badge value'
+    description: 'Badge value (right side text)'
     required: true
 
 outputs:
