@@ -27,7 +27,7 @@ jobs:
           limit-coverage: "80"
           badge-label: "coverage"
           badge-filename: "coverage-badge.svg"
-          badge-value: "${COVERAGE_VALUE}"
+          badge-value: "${{ env.COVERAGE_VALUE }}"
 
       - name: Generate coverage badge2
         id: coverage-badge2
@@ -36,7 +36,7 @@ jobs:
           limit-coverage: "90"
           badge-label: "coverage"
           badge-filename: "coverage-badge2.svg"
-          badge-value: "${COVERAGE_VALUE}"
+          badge-value: "${{ env.COVERAGE_VALUE }}"
 
       - name: Print url of badge
         run: |
