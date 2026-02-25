@@ -13,7 +13,7 @@ is_float() {
 }
 
 # Validate required environment variables
-if [[ -z "${GITHUB_TOKEN:-}" ]] || [[ -z "${GITHUB_ACTOR:-}" ]] || [[ -z "${GITHUB_REPOSITORY:-}" ]] || [[ -z "${BADGE_FILENAME:-}" ]]; then
+if [[ -z "${GITHUB_TOKEN:-}" ]] || [[ -z "${GITHUB_ACTOR:-}" ]] || [[ -z "${GITHUB_ACTOR_ID:-}" ]] || [[ -z "${GITHUB_REPOSITORY:-}" ]] || [[ -z "${BADGE_FILENAME:-}" ]]; then
   echo "Error: Required environment variables are missing" >&2
   exit 1
 fi
