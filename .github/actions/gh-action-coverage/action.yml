@@ -53,7 +53,7 @@ runs:
         -e GITHUB_TOKEN=${{ github.token }} 
         -e GITHUB_ACTOR=${{ github.actor }} 
         -e GITHUB_ACTOR_ID=${{ github.actor_id }} 
-        -e GITHUB_REPOSITORY=${GITHUB_REPOSITORY}.wiki 
+        -e GITHUB_REPOSITORY=${GITHUB_REPOSITORY}
         -e LIMIT_COVERAGE=${{ inputs.limit-coverage }} 
         -e BADGE_COLOR_UNDER_LIMIT=${{ inputs.color-under-limit }} 
         -e BADGE_COLOR_OVER_LIMIT=${{ inputs.color-over-limit }} 
