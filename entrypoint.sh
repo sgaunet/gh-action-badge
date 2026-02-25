@@ -12,11 +12,34 @@ is_float() {
   [[ "$1" =~ ^-?[0-9]*\.[0-9]+$ ]]
 }
 
+# Validate hex color format (#RRGGBB)
+validate_color() {
+  if [[ ! "$1" =~ ^#[0-9A-Fa-f]{6}$ ]]; then
+    echo "Error: Invalid color format '$1'. Expected hex format like #ff0000" >&2
+    return 1
+  fi
+}
+
+# Validate filename (no path separators, safe characters only)
+validate_filename() {
+  if [[ "$1" =~ [/\\] ]]; then
+    echo "Error: BADGE_FILENAME cannot contain path separators" >&2
+    return 1
+  fi
+  if [[ ! "$1" =~ ^[a-zA-Z0-9._-]+$ ]]; then
+    echo "Error: BADGE_FILENAME contains invalid characters. Use alphanumeric, dots, dashes, underscores only" >&2
+    return 1
+  fi
+}
+
 # Validate required environment variables
 if [[ -z "${GITHUB_TOKEN:-}" ]] || [[ -z "${GITHUB_ACTOR:-}" ]] || [[ -z "${GITHUB_ACTOR_ID:-}" ]] || [[ -z "${GITHUB_REPOSITORY:-}" ]] || [[ -z "${BADGE_FILENAME:-}" ]]; then
   echo "Error: Required environment variables are missing" >&2
   exit 1
 fi
+
+# Validate filename format
+validate_filename "${BADGE_FILENAME}" || exit 1
 
 # git configuration
 git config --global user.name "${GITHUB_ACTOR}"
@@ -44,6 +67,16 @@ then
     exit 1
   fi
 
+  # Validate coverage range (0-100)
+  if (( $(echo "$BADGE_VALUE < 0" | bc -l) )) || (( $(echo "$BADGE_VALUE > 100" | bc -l) )); then
+    echo "Error: BADGE_VALUE ($BADGE_VALUE) must be between 0 and 100" >&2
+    exit 1
+  fi
+
+  # Validate color formats
+  validate_color "${BADGE_COLOR_UNDER_LIMIT}" || exit 1
+  validate_color "${BADGE_COLOR_OVER_LIMIT}" || exit 1
+
   if (( $(echo "$BADGE_VALUE < $LIMIT_COVERAGE" | bc -l) )); then
     export color=${BADGE_COLOR_UNDER_LIMIT}
     echo "Coverage is under the limit"
@@ -55,6 +88,7 @@ then
   export BADGE_VALUE="${BADGE_VALUE}%"
 else
   # mode: custom badge
+  validate_color "${BADGE_COLOR}" || exit 1
   export color=${BADGE_COLOR}
 fi
 
