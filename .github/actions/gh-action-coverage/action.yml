@@ -48,7 +48,7 @@ runs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
-    - name: launch docker image"
+    - name: launch docker image
       run: docker run --rm 
         -e GITHUB_TOKEN=${{ github.token }} 
         -e GITHUB_ACTOR=${{ github.actor }} 
