@@ -33,7 +33,7 @@ jobs:
           echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Create Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           name: Release ${{ steps.tag.outputs.tag_name }}
           body: ${{ steps.tag.outputs.tag_message }}
