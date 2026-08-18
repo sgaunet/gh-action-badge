@@ -8,7 +8,6 @@ tasks:
       - task -a
 
   build:
-    desc: "Build Docker image"
+    desc: "Build Docker image locally (no push)"
     cmds:
-      - docker build . -t ghcr.io/sgaunet/gh-action-badge:latest --push
-
+      - docker build . -t gh-action-badge:dev
