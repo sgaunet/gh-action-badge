@@ -1,4 +1,4 @@
-FROM sgaunet/gobadger:0.3.1 AS gobadger
+FROM ghcr.io/sgaunet/gobadger:0.4.0 AS gobadger
 
 FROM alpine:3.24.1
 
