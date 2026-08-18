@@ -3,9 +3,12 @@ on:
   push:
     branches: [main]
 
+# Group shared with the other badge-test workflow: both push to the same wiki
+# repository, so they must never run concurrently. cancel-in-progress must stay
+# false, otherwise each workflow would cancel its sibling.
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  group: badge-tests-${{ github.ref }}
+  cancel-in-progress: false
 
 permissions:
   contents: write
@@ -15,6 +18,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+
+      # Test the image built from this commit rather than whatever :latest holds
+      - name: Build image under test
+        run: docker build . -t gh-action-badge:test
 
       - name: coverage
         id: coverage
@@ -28,6 +35,7 @@ jobs:
           badge-label: "coverage"
           badge-filename: "coverage-badge.svg"
           badge-value: "${{ env.COVERAGE_VALUE }}"
+          image: "gh-action-badge:test"
 
       - name: Generate coverage badge2
         id: coverage-badge2
@@ -37,6 +45,7 @@ jobs:
           badge-label: "coverage"
           badge-filename: "coverage-badge2.svg"
           badge-value: "${{ env.COVERAGE_VALUE }}"
+          image: "gh-action-badge:test"
 
       - name: Print url of badge
         run: |

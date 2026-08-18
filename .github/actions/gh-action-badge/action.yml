@@ -22,6 +22,11 @@ inputs:
     description: 'Badge value (right side text)'
     required: true
 
+  image:
+    description: 'Docker image to run (override only when testing this action)'
+    required: false
+    default: "ghcr.io/sgaunet/gh-action-badge:latest"
+
 outputs:
   badge-url:
     description: "URL of the badge"
@@ -36,10 +41,6 @@ runs:
       env:
         GITHUB_ACTION_PATH: ${{ github.action_path }}
 
-    # setup docker
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
-
     - name: launch docker image
       run: docker run --rm 
         -e GITHUB_TOKEN=${{ github.token }} 
@@ -50,7 +51,7 @@ runs:
         -e BADGE_LABEL=${{ inputs.badge-label }} 
         -e BADGE_FILENAME=${{ inputs.badge-filename }} 
         -e BADGE_VALUE=${{ inputs.badge-value }} 
-        ghcr.io/sgaunet/gh-action-badge:latest
+        ${{ inputs.image }}
       shell: bash
 
     - name: url of the badge
